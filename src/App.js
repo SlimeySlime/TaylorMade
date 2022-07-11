@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import Login from './user/Login';
+import { Route, Routes } from 'react-router-dom';
+import Payments from './user/Payments';
+import axios from 'axios'
+import { SERVER_PATH } from './general/config';
 
 function App() {
+
+  // axios.defaults.baseURL = SERVER_PATH
+
   return (
-    <div className="App">
-      <Login />
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+    <div className="bg-slate-50 flex flex-col min-h-screen justify-center items-center">
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/payments' element={<Payments />} />
+      </Routes>
     </div>
   );
 }
