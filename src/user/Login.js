@@ -7,6 +7,8 @@ import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { TextField } from '@mui/material'
 
+import { AiOutlineLock, AiOutlinePhone, AiOutlineUnlock } from "react-icons/ai";
+
 const Login = () => {
 
     const [id, setId] = useState('');
@@ -54,18 +56,20 @@ const Login = () => {
 
     return(
         <div className='max-w-xl flex-col p-2 bg-slate-50 mr-4'>
-            <div className='max-w-sm'>
+            <div className='max-w-xs'>
                 <img src={logo} alt="" />
             </div>
             <div className='mt-12 border-2 border-slate-500 bg-white rounded-lg'>
-                <div className='flex m-2'>
-                    <p className='m-2 text-md inline'>전화번호</p>
-                    <input className='border-b pl-2 bg-slate-100'  type="text" placeholder='전화번호' name="id" 
+                <div className='flex p-2 border-b border-slate-500'>
+                    {/* <p className='m-2 text-md inline'>전화번호</p> */}
+                    <AiOutlinePhone className='w-8 h-8 m-2'/>
+                    <input className='border-b ml-2 pl-2 bg-blue-50 rounded-lg'  type="text" placeholder='전화번호' name="id" 
                         onChange={(e) => {setId(e.target.value)}} />
                 </div>
                 <div className='flex m-2'>
-                    <p className='m-2 text-md inline'>비밀번호</p>
-                    <input className='border-b pl-2 bg-slate-100'  type="text" placeholder='전화번호' name="pw" 
+                    {/* <p className='m-2 text-md inline'>전화번호</p> */}
+                    <AiOutlineLock className='w-8 h-8 m-2'/>
+                    <input className='border-b ml-2 pl-2 bg-blue-50 rounded-lg'  type="text" placeholder='비밀번호' name="id" 
                         onChange={(e) => {setPw(e.target.value)}} />
                 </div>
             </div>

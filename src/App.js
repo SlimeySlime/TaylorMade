@@ -11,7 +11,7 @@ function App() {
   // axios.defaults.baseURL = SERVER_PATH
 
   return (
-    <div className="bg-slate-50 flex flex-col min-h-screen justify-center items-center">
+    <div className="w-11/12? m-0 bg-slate-50 flex flex-col min-h-screen justify-center items-center">
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/payments' element={<Payments />} />
