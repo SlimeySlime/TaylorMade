@@ -53,7 +53,7 @@ const Login = () => {
     }
 
     return(
-        <div className='max-w-xl flex-col p-2 bg-slate-50'>
+        <div className='max-w-xl flex-col p-2 bg-slate-50 mr-4'>
             <div className='max-w-sm'>
                 <img src={logo} alt="" />
             </div>
