@@ -5,13 +5,15 @@ import { Route, Routes } from 'react-router-dom';
 import Payments from './user/Payments';
 import axios from 'axios'
 import { SERVER_PATH } from './general/config';
+import TopNavigation from './general/TopNavigation';
 
 function App() {
 
   // axios.defaults.baseURL = SERVER_PATH
 
   return (
-    <div className="w-11/12? m-0 bg-slate-50 flex flex-col min-h-screen justify-center items-center">
+    <div className="m-0? bg-slate-50 flex flex-col min-h-screen justify-start items-center">
+      <TopNavigation className='sticky'/>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/payments' element={<Payments />} />

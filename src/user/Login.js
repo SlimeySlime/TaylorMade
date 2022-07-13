@@ -32,32 +32,33 @@ const Login = () => {
         axios.get(SERVER_PATH + '/auth', {
             params :{
                 id : id,
-                pw: pw,
+                pw : pw,
             }
         }).then((result) => {
-            const res = result.data[0]
-            if (res) {
-                console.log('cookie.set.id' , res.ps_Count, )
-                setCookie('id', res.ps_Count, { path: '/' })
-
-                navigate('/payments');
-
-            }else{
-                console.log('login error')
+            // console.log(result)
+            if (result.data !== undefined) {
+                const  { accessToken } = result.data
+                console.log(result)
+                console.log(accessToken)
+                // default header에 저장❗
+                axios.defaults.headers.common['authorization'] = `Bearer ${accessToken}`;
+                setCookie('accessToken',  accessToken, { path: '/' })
+                navigate('/payments')
+            } else {
+                console.log('undefined ', result.data[0])
                 alert('login error')
             }
 
         })
     }
 
-    function debugCheck(){
-
-    }
-
     return(
-        <div className='max-w-xl flex-col p-2 bg-slate-50 mr-4'>
-            <div className='max-w-xs'>
+        <div className='max-w-xl flex-col p-2 bg-slate-50 m-4'>
+            {/* <div className='max-w-xs'>
                 <img src={logo} alt="" />
+            </div> */}
+            <div className='flex flex-1'>
+                <p className='text-center text-lg'>급여조회</p>
             </div>
             <div className='mt-12 border-2 border-slate-500 bg-white rounded-lg'>
                 <div className='flex p-2 border-b border-slate-500'>

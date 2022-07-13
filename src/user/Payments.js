@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import axios from 'axios'
 import { MONTH_KEYWORD, PAYMONTH_dateToString, PAYMONTH_StringToDate, SERVER_PATH } from "../general/config";
-
+import { useNavigate } from 'react-router-dom'
 
 
 // eslint-disable-next-line no-extend-native
@@ -15,7 +15,7 @@ Number.prototype.toMoney = function() {
 
 const Payments = () => {
 
-    
+    const navigate = useNavigate()
     const [cookie, setCookie,] = useCookies();
 
     const [paymentList, setPaymentList] = useState([])
@@ -33,11 +33,13 @@ const Payments = () => {
 
     useEffect(() => {
 
-        axios.get(SERVER_PATH, {
-            params: {
-                id : cookie.id
-            }
-        }).then((result) => {
+        // axios.get(SERVER_PATH, {
+        //     params: {
+        //         id : cookie.id
+        //     }
+        // })
+        axios.get(SERVER_PATH)      // header에 토큰 저장 
+        .then((result) => {
             console.log(result)
             setPaymentList(result.data[0])
             setPaymentTypes(result.data[1])
@@ -47,6 +49,11 @@ const Payments = () => {
             const paymentData = result.data[0]
             setCurrentMonth(paymentData[paymentData.length - 1].mp_yymm)
             setCurrentPayment(paymentData[paymentData.length - 1])
+        }).catch((err) => {
+            console.log('err at payments axios ', err)
+            // todo 403 forbidden : redirect at 3s
+            alert('로그인 해주세요.')
+            navigate('/')
         })
     }, [cookie.id])
 
@@ -112,7 +119,6 @@ const Payments = () => {
         paytypeLength.forEach((index) => {
             // mp_Pay1,2,3.. 항목이 있으면
             if (payments['mp_Pay' + index]) {
-                // payExist[currentTypes['base_Pay' + index]] = payments['mp_Pay' + index]
                 payExist['pay' + payIndex] = [types['base_Pay' + index], payments['mp_Pay' + index]]
                 payIndex++
             }
@@ -123,19 +129,16 @@ const Payments = () => {
                 exceptIndex++
             }
         })
-        
         console.log('pay exists ', payExist)
-        // setExistLength(Math.max(payIndex, exceptIndex))
-        // console.log('existsLength : ', Math.max(payIndex, exceptIndex))
         const len = Math.max(payIndex, exceptIndex)
-        let existArray = [...Array(len).keys()]
-        console.log(existArray)
+        let existArray = [...Array(len).keys()] // [0, 1, 2, 3, 4, 5]
         setExistLength(existArray)
         setExistPays(payExist)
     }
 
     function logout() {
-        return 0
+        axios.defaults.headers.common['authorization'] = ``;
+        navigate('/')
     }
 
     const ExistPayTable = () => {
@@ -143,7 +146,7 @@ const Payments = () => {
         return(
         <tbody className="border">
             {existLength.map((index) => 
-            <tr>
+            <tr key={index}>
                 <td className="py-2 text-xs text-center border p-1 bg-blue-200">{existPays['pay' + index] ? existPays['pay' + index][0] : ''}</td>
                 <td className="py-2 text-sm border p-1 text-right">{existPays['pay' + index] !== undefined ? existPays['pay' + index][1].toMoney() : ''}</td>
                 <td className="py-2 text-xs text-center border p-1 bg-blue-200">{existPays['except' + index] !== undefined ? existPays['except' + index][0] : ''}</td>
@@ -166,11 +169,10 @@ const Payments = () => {
     }
 
     return(
-        <div className="flex flex-col justify-start items-center mb-12">
-            <div className='flex p-4 max-w-xs justify-center items-center'>
-                <div className='basis-full'>
-                    <img className='' src={logo} alt="" />
-                </div>
+        <div className="flex flex-col justify-start items-center mt-4">
+            <div className=''>
+                <button className="p-1 m-1 rounded bg-slate-600 text-white" onClick={() => {logout()}}>로그아웃</button>
+                <button className="p-1 m-1 rounded bg-slate-600 text-white" onClick={() => {}}>비밀번호 변경</button>
             </div>
             {/* <button className="basis-1/5 p-3 m-1 rounded bg-slate-300 text-white" onClick={() => {logout()}}>로그아웃</button> */}
             <div>
