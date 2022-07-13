@@ -172,7 +172,7 @@ const Payments = () => {
         <div className="flex flex-col justify-start items-center mt-4">
             <div className=''>
                 <button className="p-1 m-1 rounded bg-slate-600 text-white" onClick={() => {logout()}}>로그아웃</button>
-                <button className="p-1 m-1 rounded bg-slate-600 text-white" onClick={() => {}}>비밀번호 변경</button>
+                <button className="p-1 m-1 rounded bg-slate-600 text-white" onClick={() => {navigate('/password')}}>비밀번호 변경</button>
             </div>
             {/* <button className="basis-1/5 p-3 m-1 rounded bg-slate-300 text-white" onClick={() => {logout()}}>로그아웃</button> */}
             <div>

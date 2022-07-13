@@ -1,5 +1,5 @@
 import logo from '../taylorLogo.svg';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import { SERVER_PATH } from '../general/config';
@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { TextField } from '@mui/material'
 
-import { AiOutlineLock, AiOutlinePhone, AiOutlineUnlock } from "react-icons/ai";
+import { AiOutlineConsoleSql, AiOutlineLock, AiOutlinePhone, AiOutlineUnlock } from "react-icons/ai";
 
 const Login = () => {
 
@@ -15,6 +15,10 @@ const Login = () => {
     const [pw, setPw] = useState('');
     const [cookies, setCookie, ] = useCookies();
     let navigate = useNavigate();
+
+    useEffect(() => {
+        // todo - check token -> if not 403, redirect to /payments
+    }, [])
 
     function loginCheck(){
         if (id && pw) {
@@ -36,14 +40,20 @@ const Login = () => {
             }
         }).then((result) => {
             // console.log(result)
-            if (result.data !== undefined) {
+            if (result.data !== undefined && result.data !== -1) {
                 const  { accessToken } = result.data
-                console.log(result)
+
+                // console.log(result)
                 console.log(accessToken)
-                // default header에 저장❗
-                axios.defaults.headers.common['authorization'] = `Bearer ${accessToken}`;
-                setCookie('accessToken',  accessToken, { path: '/' })
-                navigate('/payments')
+
+                if (accessToken === -1) {
+                    alert('전화번호나 비밀번호를 확인해주세요.')
+                }else{
+                    // default header에 저장❗
+                    axios.defaults.headers.common['authorization'] = `Bearer ${accessToken}`;
+                    setCookie('accessToken',  accessToken, { path: '/' })
+                    navigate('/payments')
+                }
             } else {
                 console.log('undefined ', result.data[0])
                 alert('login error')
@@ -70,7 +80,7 @@ const Login = () => {
                 <div className='flex m-2'>
                     {/* <p className='m-2 text-md inline'>전화번호</p> */}
                     <AiOutlineLock className='w-8 h-8 m-2'/>
-                    <input className='border-b ml-2 pl-2 bg-blue-50 rounded-lg'  type="text" placeholder='비밀번호' name="id" 
+                    <input className='border-b ml-2 pl-2 bg-blue-50 rounded-lg'  type="password" placeholder='비밀번호' name="pw" 
                         onChange={(e) => {setPw(e.target.value)}} />
                 </div>
             </div>

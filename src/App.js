@@ -3,9 +3,10 @@ import './App.css';
 import Login from './user/Login';
 import { Route, Routes } from 'react-router-dom';
 import Payments from './user/Payments';
-import axios from 'axios'
+// import axios from 'axios'
 import { SERVER_PATH } from './general/config';
 import TopNavigation from './general/TopNavigation';
+import PassEdit from './user/PassEdit';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/payments' element={<Payments />} />
+        <Route path='/password' element={<PassEdit />}/>
       </Routes>
     </div>
   );
