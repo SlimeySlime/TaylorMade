@@ -67,8 +67,10 @@ const Login = () => {
             {/* <div className='max-w-xs'>
                 <img src={logo} alt="" />
             </div> */}
-            <div className='flex flex-1'>
-                <p className='text-center text-lg'>급여조회</p>
+            <div className='flex flex-1 justify-center'>
+                <p className='text-center text-lg'>
+                    조회하려면 핸드폰 번호와 <br /> 비밀번호를 입력해주세요
+                </p>
             </div>
             <div className='mt-12 border-2 border-slate-500 bg-white rounded-lg'>
                 <div className='flex p-2 border-b border-slate-500'>

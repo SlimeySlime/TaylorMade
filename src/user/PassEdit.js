@@ -30,16 +30,18 @@ const PassEdit = () => {
                 newPw : newPw
             })
             .then((result) => {
-                console.log(result)
-
-                if (true) {
+                
+                console.log('pw edit', result)
+                
+                if (result.status === 200){
                     alert('비밀번호가 변경되었습니다.')
                     navigate('/payments')
                 }else{
                     alert('이전 비밀번호가 틀립니다')
                 }
+
             }).catch((err) => {
-                console.log('axios err', err)
+                // console.log('axios err', err)
                 alert('다시 로그인해주세요.')
                 navigate('/')
             })

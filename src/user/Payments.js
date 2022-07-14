@@ -67,14 +67,11 @@ const Payments = () => {
         // monthString = monthString.split('. ').join('')
         if (keyword === MONTH_KEYWORD.prev) {
             monthDate.setMonth(monthDate.getMonth() - 1)
-            setCurrentMonth(PAYMONTH_dateToString(monthDate))
-            console.log('set Month - PAYMONTH to string', PAYMONTH_dateToString(monthDate), monthDate)
-
-            // if (checkFinished(PAYMONTH_dateToString(monthDate))) {
-            //     setCurrentMonth(PAYMONTH_dateToString(monthDate))
-            // }else{
-            //     alert('이전달 내역이 없습니다.')
-            // }
+            if (checkFinished(PAYMONTH_dateToString(monthDate))) {
+                setCurrentMonth(PAYMONTH_dateToString(monthDate))
+            }else{
+                alert('이전달 내역이 없습니다.')
+            }
         }else if (keyword === MONTH_KEYWORD.next){
             monthDate.setMonth(monthDate.getMonth() + 1)
             if (checkFinished(PAYMONTH_dateToString(monthDate))) {
@@ -83,9 +80,13 @@ const Payments = () => {
                 alert('다음달 내역이 없습니다.')
             }
         }else if(keyword === MONTH_KEYWORD.current) {
-            // const currentDate = new Date()
-            setCurrentMonth(paymentList[paymentList.length - 1].mp_yymm)
-            // todo 
+            
+            if (checkFinished(paymentList[paymentList.length - 1].mp_yymm)) {
+                setCurrentMonth(paymentList[paymentList.length - 1].mp_yymm)
+            }else{
+                setCurrentMonth(paymentList[paymentList.length - 2].mp_yymm)
+            }
+            // 하지만 맨 처음 급여받은 사람의 경우 - 에러 
         }
     }
 

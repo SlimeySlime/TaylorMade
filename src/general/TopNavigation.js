@@ -15,7 +15,7 @@ const TopNavigation = () => {
                 <img className="" src={logo}  alt="" />
             </div>
 
-            <div className='flex float-right mr-2 py-1'>
+            <div className='hidden flex? float-right mr-2 py-1'>
                 <HiMenuAlt2 className='w-10 h-10 p-1' color='black' onClick={() => {onOffNav()}}/>
                 <p className='flex text-black font-preten py-2 font-semibold' onClick={() => {onOffNav()}}>메뉴</p>
             </div>
