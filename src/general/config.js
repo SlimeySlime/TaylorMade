@@ -7,10 +7,10 @@ Number.prototype.toMoney = function() {
 }
 
 function PAYMONTH_dateToString(date) {
-    let y = '' + date.getFullYear()
-    let m = '' + date.getMonth()
-    if (m < 10) m = '0' + m
-    return y + m
+    let dateISO = date.toISOString().split('-')
+    const dateStr = dateISO[0] + dateISO[1]
+    // console.log(dateStr)
+    return dateStr
 }
 
 function PAYMONTH_StringToDate(monthString) {

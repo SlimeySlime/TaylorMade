@@ -5,7 +5,6 @@ import axios from 'axios'
 import { MONTH_KEYWORD, PAYMONTH_dateToString, PAYMONTH_StringToDate, SERVER_PATH } from "../general/config";
 import { useNavigate } from 'react-router-dom'
 
-
 // eslint-disable-next-line no-extend-native
 Number.prototype.toMoney = function() {
     let num = this.valueOf()
@@ -63,15 +62,19 @@ const Payments = () => {
 
     function changeMonth(keyword) {
         let monthDate = PAYMONTH_StringToDate(currentMonth)
+        console.log('current monthDate', monthDate.getMonth())
         // let monthString  = monthDate.toLocaleDateString().split('T')[0]
         // monthString = monthString.split('. ').join('')
         if (keyword === MONTH_KEYWORD.prev) {
             monthDate.setMonth(monthDate.getMonth() - 1)
-            if (checkFinished(PAYMONTH_dateToString(monthDate))) {
-                setCurrentMonth(PAYMONTH_dateToString(monthDate))
-            }else{
-                alert('이전달 내역이 없습니다.')
-            }
+            setCurrentMonth(PAYMONTH_dateToString(monthDate))
+            console.log('set Month - PAYMONTH to string', PAYMONTH_dateToString(monthDate), monthDate)
+
+            // if (checkFinished(PAYMONTH_dateToString(monthDate))) {
+            //     setCurrentMonth(PAYMONTH_dateToString(monthDate))
+            // }else{
+            //     alert('이전달 내역이 없습니다.')
+            // }
         }else if (keyword === MONTH_KEYWORD.next){
             monthDate.setMonth(monthDate.getMonth() + 1)
             if (checkFinished(PAYMONTH_dateToString(monthDate))) {
@@ -80,7 +83,8 @@ const Payments = () => {
                 alert('다음달 내역이 없습니다.')
             }
         }else if(keyword === MONTH_KEYWORD.current) {
-            const currentDate = new Date()
+            // const currentDate = new Date()
+            setCurrentMonth(paymentList[paymentList.length - 1].mp_yymm)
             // todo 
         }
     }
