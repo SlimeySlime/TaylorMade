@@ -32,11 +32,6 @@ const Payments = () => {
 
     useEffect(() => {
 
-        // axios.get(SERVER_PATH, {
-        //     params: {
-        //         id : cookie.id
-        //     }
-        // })
         axios.get(SERVER_PATH)      // header에 토큰 저장 
         .then((result) => {
             console.log(result)
@@ -46,8 +41,10 @@ const Payments = () => {
             // console.log(paymentData[paymentData.length - 1])
             // currentData는 가장 마지막 정보로 
             const paymentData = result.data[0]
-            setCurrentMonth(paymentData[paymentData.length - 1].mp_yymm)
-            setCurrentPayment(paymentData[paymentData.length - 1])
+            // setCurrentMonth(paymentData[paymentData.length - 1].mp_yymm)
+            // setCurrentPayment(paymentData[paymentData.length - 1])
+            setCurrentMonth(paymentData[0].mp_yymm)
+            setCurrentPayment(paymentData[0])
         }).catch((err) => {
             console.log('err at payments axios ', err)
             // todo 403 forbidden : redirect at 3s
@@ -67,37 +64,45 @@ const Payments = () => {
         // monthString = monthString.split('. ').join('')
         if (keyword === MONTH_KEYWORD.prev) {
             monthDate.setMonth(monthDate.getMonth() - 1)
-            if (checkFinished(PAYMONTH_dateToString(monthDate))) {
+            if (checkValidPayment(PAYMONTH_dateToString(monthDate))) {
                 setCurrentMonth(PAYMONTH_dateToString(monthDate))
             }else{
                 alert('이전달 내역이 없습니다.')
             }
         }else if (keyword === MONTH_KEYWORD.next){
             monthDate.setMonth(monthDate.getMonth() + 1)
-            if (checkFinished(PAYMONTH_dateToString(monthDate))) {
+            if (checkValidPayment(PAYMONTH_dateToString(monthDate))) {
                 setCurrentMonth(PAYMONTH_dateToString(monthDate))
             }else{
                 alert('다음달 내역이 없습니다.')
             }
         }else if(keyword === MONTH_KEYWORD.current) {
             
-            if (checkFinished(paymentList[paymentList.length - 1].mp_yymm)) {
-                setCurrentMonth(paymentList[paymentList.length - 1].mp_yymm)
+            if (checkValidPayment(paymentList[0].mp_yymm)) {
+                setCurrentMonth(paymentList[0].mp_yymm)
             }else{
-                setCurrentMonth(paymentList[paymentList.length - 2].mp_yymm)
+                setCurrentMonth(paymentList[1].mp_yymm)
             }
-            // 하지만 맨 처음 급여받은 사람의 경우 - 에러 
+
         }
     }
-
-    function checkFinished(yymmString) {
+    // check finished && payExist
+    function checkValidPayment(yymmString) {
         let finished = false
         paymentFinish.forEach((item) => {
             if (item['PC_Month'] === yymmString) {
                 finished = true
             }
         })
-        return finished
+
+        let payExist = false
+        paymentList.forEach((item) => {
+            if (item['mp_yymm'] === yymmString) {
+                payExist = true
+            }
+        })
+        console.log('check vaild ', finished, payExist, finished && payExist)
+        return finished && payExist
     }
 
     useEffect(() => {
