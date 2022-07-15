@@ -89,6 +89,8 @@ const Login = () => {
             <div className='flex justify-center m-4'>
                 <button className='p-2 m-2 w-full bg-blue-500 text-white text-xl font-bold rounded shadow-lg'
                     onClick={() => {loginCheck()}}>로그인</button>
+                <button className='p-2 m-2 w-full bg-orange-500 text-white text-xl font-bold rounded shadow-lg'
+                    onClick={() => {loginCheck()}}>비교 로그인</button>
             </div>
         </div>
     )
