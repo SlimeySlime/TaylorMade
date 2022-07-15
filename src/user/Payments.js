@@ -156,24 +156,27 @@ const Payments = () => {
         return(
         <tbody className="border">
             {existLength.map((index) => 
-            <tr key={index}>
-                <td className="py-2 text-xs text-center border p-1 bg-blue-200">{existPays['pay' + index] ? existPays['pay' + index][0] : ''}</td>
-                <td className="py-2 text-sm border p-1 text-right">{existPays['pay' + index] !== undefined ? existPays['pay' + index][1].toMoney() : ''}</td>
-                <td className="py-2 text-xs text-center border p-1 bg-blue-200">{existPays['except' + index] !== undefined ? existPays['except' + index][0] : ''}</td>
-                <td className="py-2 text-sm border p-1 text-right">{existPays['except' + index] !== undefined ? existPays['except' + index][1].toMoney() : ''}</td>
-            </tr>
+                <tr key={index}>
+                    <td className="text-center border border-slate-500 py-2 w-1/4" style={{fontSize:"17px"}}>{existPays['pay' + index] ? existPays['pay' + index][0] : ''}</td>
+                    <td className="text-right border border-slate-500 pr-2 py-2 w-1/4" style={{fontSize:"17px"}}>{existPays['pay' + index] !== undefined ? existPays['pay' + index][1].toMoney() : ''}</td>
+                    <td className="text-center border border-slate-500 py-2 w-1/4" style={{fontSize:"17px"}}>{existPays['except' + index] !== undefined ? existPays['except' + index][0] : ''}</td>
+                    <td className="text-right border border-slate-500 pr-2 py-2 w-1/4" style={{fontSize:"17px"}}>{existPays['except' + index] !== undefined ? existPays['except' + index][1].toMoney() : ''}</td>
+                </tr>
             )}
             <tr>
-                <td className="py-4 text-xs text-center font-bold border p-1 bg-green-400">지급합계</td>
-                <td className="p-2 border text-sm text-right">{currentData.mp_PaySum?.toMoney()}</td>
-                <td className="py-4 text-xs text-center font-bold border p-1 bg-orange-400">공제합계</td>
-                <td className="p-2 border text-sm text-right">{currentData.mp_ExceptSum?.toMoney()}</td>
+                <td className="bg-emerald-200 text-center font-bold border border-slate-500 py-2 w-1/4" style={{fontSize:"17px"}}>지급합계</td>
+                <td className="bg-emerald-200 text-right font-bold border border-slate-500 pr-2 py-2 w-1/4" style={{fontSize:"17px"}}>{currentData.mp_PaySum?.toMoney()}</td>
+                <td className="bg-sky-200 text-center font-bold border border-slate-500 py-2 w-1/4" style={{fontSize:"17px"}}>공제합계</td>
+                <td className="bg-sky-200 text-right font-bold border border-slate-500 pr-2 py-2 w-1/4" style={{fontSize:"17px"}}>{currentData.mp_ExceptSum?.toMoney()}</td>
             </tr>
             <tr>
-                <td colSpan={2} className="text-md text-center font-bold border p-1 bg-blue-400 text-black">차인지급액</td>
-                <td colSpan={2} className="text-md p-2 border text-right">{(currentData.mp_PaySum - currentData.mp_ExceptSum)?.toMoney()}</td>
+                <td colSpan={2} className="bg-amber-400 text-center text-lg font-bold border border-slate-500 py-2 w-1/4" style={{fontSize:"19px"}}>차인지급액</td>
+                <td colSpan={2} className="bg-amber-400 text-right font-bold border border-slate-500 pr-2 py-2 w-1/4" style={{fontSize:"19px"}}>
+                    {(currentData.mp_PaySum - currentData.mp_ExceptSum)?.toMoney()}</td>
             </tr>
-            
+                 {/* <td colSpan={2} className="text-md text-center font-bold border p-1 bg-blue-400 text-black">차인지급액</td>
+                <td colSpan={2} className="text-md p-2 border text-right">{(currentData.mp_PaySum - currentData.mp_ExceptSum)?.toMoney()}</td> */}
+           
         </tbody>
         )
     }
@@ -181,51 +184,103 @@ const Payments = () => {
     return(
         <div className="flex flex-col justify-start items-center mt-4">
             <div className=''>
-                <button className="p-1 m-1 rounded bg-slate-600 text-white" onClick={() => {logout()}}>로그아웃</button>
                 <button className="p-1 m-1 rounded bg-slate-600 text-white" onClick={() => {navigate('/password')}}>비밀번호 변경</button>
             </div>
             {/* <button className="basis-1/5 p-3 m-1 rounded bg-slate-300 text-white" onClick={() => {logout()}}>로그아웃</button> */}
             <div>
-                <button className="p-3 m-1 rounded bg-orange-500 text-white" onClick={() => {changeMonth(MONTH_KEYWORD.prev)}}>이전달</button>
-                <button className="p-3 m-1 rounded bg-blue-500 text-white" onClick={() => {changeMonth(MONTH_KEYWORD.current)}}>현재달</button>
-                <button className="p-3 m-1 rounded bg-orange-500 text-white" onClick={() => {changeMonth(MONTH_KEYWORD.next)}}>다음달</button>
-                <p className="p-4 text-center text-2xl" >{`${currentMonth?.slice(0, 4)}년 ${currentMonth?.slice(4, 6)}월 `} 급여</p>
+                <button className="p-2 rounded bg-orange-500 text-white w-24" onClick={() => {changeMonth(MONTH_KEYWORD.prev)}}>이전월</button>
+                <button className="p-2 m-1 rounded bg-blue-500 text-white w-24" onClick={() => {changeMonth(MONTH_KEYWORD.current)}}>당월</button>
+                <button className="p-2 rounded bg-orange-500 text-white w-24" onClick={() => {changeMonth(MONTH_KEYWORD.next)}}>다음월</button>
+                <button className="p-2 m-1 rounded bg-slate-600 text-white w-24" onClick={() => {logout()}}>로그아웃</button>
+                <p className="p-2 text-center text-3xl bg-gray-300 mt-2 rounded" >{`${currentMonth?.slice(0, 4)}년 ${currentMonth?.slice(4, 6)}월 `} 급여</p>
             </div>
             <div className="flex flex-1 m-2">
-                <div className="">
-                    {/* <p>부서명 : {currentData.mp_partName}</p> */}
-                    <p className="border-b-2? border-black"> 과명 : {currentData.mp_subPartName}</p>
-                    <p>직위 : {currentData.mp_Position}</p>
-                    <p className="border-b-2 border-black"> 성명 : {currentData.mp_Name}</p>
-                </div>
-            <div className="border ml-2">
-                <table>
+                <table class="border-separate border-spacing-1 w-48">
                     <tr>
-                        <td className="p-1 border text-sm">평일 근무</td>
-                        <td className="p-1 border text-sm"></td>
+                        <td class="text-right pr-1">부서명</td>
+                        <td class="border border-slate-500">{currentData.mp_partName}</td>
                     </tr>
                     <tr>
-                        <td className="p-1 border text-sm">지.조.외</td>
-                        <td className="p-1 border text-sm"> {currentData.mp_lateTime} {currentData.mp_earlyTime} {currentData.mp_OutTime}</td>
+                        <td class="text-right pr-1">과명</td>
+                        <td class="border border-slate-500">{currentData.mp_subPartName}</td>
                     </tr>
                     <tr>
-                        <td className="p-1 border text-sm">연장근무</td>
-                        <td className="p-1 border text-sm"> {currentData.mp_overtime}</td>
+                        <td class="text-right pr-1">직위</td>
+                        <td class="border border-slate-500">{currentData.mp_Position}</td>
                     </tr>
                     <tr>
-                        <td className="p-1 border text-sm">심야근로</td>
-                        <td className="p-1 border text-sm"> {currentData.mp_nightTime}</td>
-                    </tr>
-                    <tr>
-                        <td className="p-1 border text-sm">휴일근로</td>
-                        <td className="p-1 border text-sm"> {currentData.mp_HolidayTime} </td>
+                        <th class="text-right pr-1">성명</th>
+                        <th class="border border-slate-500 text-left">{currentData.mp_Name}</th>
                     </tr>
                 </table>
-                
+                <table class="border-separate border-spacing-1 w-48 ml-2">
+                    <tr>
+                        <td class="text-right pr-1">연장근무</td>
+                        <td class="border border-slate-500 text-center">{currentData.mp_overtime}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right pr-1">심야근무</td>
+                        <td class="border border-slate-500 text-center">{currentData.mp_nightTime}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right pr-1">휴일근무</td>
+                        <td class="border border-slate-500 text-center">{currentData.mp_HolidayTime}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right pr-1">지각</td>
+                        <td class="border border-slate-500 text-center">{currentData.mp_lateTime}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right pr-1">조퇴</td>
+                        <td class="border border-slate-500 text-center">{currentData.mp_earlyTime}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right pr-1">외출</td>
+                        <td class="border border-slate-500 text-center">{currentData.mp_OutTime}</td>
+                    </tr>
+                </table>
             </div>
+            
+            <div className='flex flex-col w-screen justify-center items-center mt-4'>
+                <table className="w-4/5">
+                    <thead>
+                        <tr>
+                            <th className="border bg-emerald-200 p-1 text-lg border border-slate-500" colSpan={2}>지급항목</th>
+                            <th className="border bg-sky-200 p-1 text-lg border border-slate-500" colSpan={2}>공제항목</th>
+                        </tr>
+                    </thead>
+                    {ExistPayTable()}
+                </table>
             </div>
+            <p className="p-2 text-center font-bold text-lg mt-2">대단히 수고하셨습니다.</p>
+
+
+            {/* <div className='flex flex-col p-2 pr-4 w-screen justify-center items-center'>
+                <table className="w-4/5">
+                    <thead>
+                        <tr>
+                            <th className="border bg-green-400" colSpan={2}>지급항목</th>
+                            <th className="border bg-orange-400" colSpan={2}>공제항목</th>
+                        </tr>
+                    </thead>
+
+                    {ExistPayTable()}
+                    
+                </table>
+            </div> */}
+
+
+            {/* <p className="p-2 text-center font-bold text-lg mt-4">대단히 수고하셨습니다.</p>
+
+            <table className="w-5/6">
+                <thead>
+                    <tr>
+                        <th className="border bg-green-400 p-1 text-lg" colSpan={2}>지급항목</th>
+                        <th className="border bg-orange-400 p-1 text-" colSpan={2}>공제항목</th>
+                    </tr>
+                </thead>
+            </table>
             <div className='flex flex-col p-2 pr-4 w-screen justify-center items-center'>
-                <p className="p-2 text-center font-bold text-lg">대단히 수고하셨습니다.</p>
                 <table className="max-w-fit">
                     <thead>
                         <tr>
@@ -237,7 +292,7 @@ const Payments = () => {
                     {ExistPayTable()}
                     
                 </table>
-            </div>
+            </div> */}
 
         </div>
     )

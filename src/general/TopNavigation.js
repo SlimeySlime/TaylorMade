@@ -11,7 +11,7 @@ const TopNavigation = () => {
     return(
         <nav className="flex flex-1 w-screen max-h-12 top-0 sticky bg-blue-100">
             {/* logo */}
-            <div className='flex flex-1 p-2'>
+            <div className='flex flex-1 justify-center p-2'>
                 <img className="" src={logo}  alt="" />
             </div>
 

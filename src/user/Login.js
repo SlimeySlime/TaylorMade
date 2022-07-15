@@ -69,14 +69,14 @@ const Login = () => {
             </div> */}
             <div className='flex flex-1 justify-center'>
                 <p className='text-center text-lg'>
-                    조회하려면 핸드폰 번호와 <br /> 비밀번호를 입력해주세요
+                    휴대폰 번호와 <br /> 비밀번호를 입력해 주세요.
                 </p>
             </div>
             <div className='mt-12 border-2 border-slate-500 bg-white rounded-lg'>
                 <div className='flex p-2 border-b border-slate-500'>
                     {/* <p className='m-2 text-md inline'>전화번호</p> */}
                     <AiOutlinePhone className='w-8 h-8 m-2'/>
-                    <input className='border-b ml-2 pl-2 bg-blue-50 rounded-lg'  type="text" placeholder='전화번호' name="id" 
+                    <input className='border-b ml-2 pl-2 bg-blue-50 rounded-lg'  type="text" placeholder='휴대폰번호' name="id" 
                         onChange={(e) => {setId(e.target.value)}} />
                 </div>
                 <div className='flex m-2'>
@@ -87,10 +87,8 @@ const Login = () => {
                 </div>
             </div>
             <div className='flex justify-center m-4'>
-                <button className='p-2 m-2 w-full bg-blue-500 text-white text-xl font-bold rounded shadow-lg'
+                <button className='p-2 m-2 w-full bg-green-500 text-white text-xl font-bold rounded shadow-lg'
                     onClick={() => {loginCheck()}}>로그인</button>
-                <button className='p-2 m-2 w-full bg-orange-500 text-white text-xl font-bold rounded shadow-lg'
-                    onClick={() => {loginCheck()}}>비교 로그인</button>
             </div>
         </div>
     )
