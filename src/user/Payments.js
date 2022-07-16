@@ -172,7 +172,7 @@ const Payments = () => {
             <tr>
                 <td colSpan={2} className="bg-amber-400 text-center text-lg font-bold border border-slate-500 py-2 w-1/4" style={{fontSize:"19px"}}>차인지급액</td>
                 <td colSpan={2} className="bg-amber-400 text-right font-bold border border-slate-500 pr-2 py-2 w-1/4" style={{fontSize:"19px"}}>
-                    {(currentData.mp_PaySum - currentData.mp_ExceptSum)?.toMoney()}</td>
+                    {currentData.mp_realPay?.toMoney()}</td>
             </tr>
                  {/* <td colSpan={2} className="text-md text-center font-bold border p-1 bg-blue-400 text-black">차인지급액</td>
                 <td colSpan={2} className="text-md p-2 border text-right">{(currentData.mp_PaySum - currentData.mp_ExceptSum)?.toMoney()}</td> */}
@@ -183,11 +183,11 @@ const Payments = () => {
 
     return(
         <div className="flex flex-col justify-start items-center mt-4">
-            <div className=''>
+            <div className='hidden'>
                 <button className="p-1 m-1 rounded bg-slate-600 text-white" onClick={() => {navigate('/password')}}>비밀번호 변경</button>
             </div>
             {/* <button className="basis-1/5 p-3 m-1 rounded bg-slate-300 text-white" onClick={() => {logout()}}>로그아웃</button> */}
-            <div>
+            <div className='mt-8'>
                 <button className="p-2 rounded bg-orange-500 text-white w-24" onClick={() => {changeMonth(MONTH_KEYWORD.prev)}}>이전월</button>
                 <button className="p-2 m-1 rounded bg-blue-500 text-white w-24" onClick={() => {changeMonth(MONTH_KEYWORD.current)}}>당월</button>
                 <button className="p-2 rounded bg-orange-500 text-white w-24" onClick={() => {changeMonth(MONTH_KEYWORD.next)}}>다음월</button>
@@ -242,57 +242,18 @@ const Payments = () => {
             </div>
             
             <div className='flex flex-col w-screen justify-center items-center mt-4'>
-                <table className="w-4/5">
+                <table className="w-4/5? max-w-2xl">
                     <thead>
                         <tr>
-                            <th className="border bg-emerald-200 p-1 text-lg border border-slate-500" colSpan={2}>지급항목</th>
-                            <th className="border bg-sky-200 p-1 text-lg border border-slate-500" colSpan={2}>공제항목</th>
+                            <th className="border bg-emerald-200 p-1 text-lg border-slate-500" colSpan={2}>지급항목</th>
+                            <th className="border bg-sky-200 p-1 text-lg border-slate-500" colSpan={2}>공제항목</th>
                         </tr>
                     </thead>
                     {ExistPayTable()}
                 </table>
             </div>
+
             <p className="p-2 text-center font-bold text-lg mt-2">대단히 수고하셨습니다.</p>
-
-
-            {/* <div className='flex flex-col p-2 pr-4 w-screen justify-center items-center'>
-                <table className="w-4/5">
-                    <thead>
-                        <tr>
-                            <th className="border bg-green-400" colSpan={2}>지급항목</th>
-                            <th className="border bg-orange-400" colSpan={2}>공제항목</th>
-                        </tr>
-                    </thead>
-
-                    {ExistPayTable()}
-                    
-                </table>
-            </div> */}
-
-
-            {/* <p className="p-2 text-center font-bold text-lg mt-4">대단히 수고하셨습니다.</p>
-
-            <table className="w-5/6">
-                <thead>
-                    <tr>
-                        <th className="border bg-green-400 p-1 text-lg" colSpan={2}>지급항목</th>
-                        <th className="border bg-orange-400 p-1 text-" colSpan={2}>공제항목</th>
-                    </tr>
-                </thead>
-            </table>
-            <div className='flex flex-col p-2 pr-4 w-screen justify-center items-center'>
-                <table className="max-w-fit">
-                    <thead>
-                        <tr>
-                            <th className="border bg-green-400" colSpan={2}>지급항목</th>
-                            <th className="border bg-orange-400" colSpan={2}>공제항목</th>
-                        </tr>
-                    </thead>
-
-                    {ExistPayTable()}
-                    
-                </table>
-            </div> */}
 
         </div>
     )
